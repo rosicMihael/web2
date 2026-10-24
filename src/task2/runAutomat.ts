@@ -9,7 +9,7 @@ async function main() {
   const clientSecret = process.env.M2M_CLIENT_SECRET!;
   const scope = "create:passes";
 
-  const apiUrl = `${process.env.ISSUER_BASE_URL}/api/passes`;
+  const apiUrl = `https://lab1-aou8.onrender.com/api/passes`;
 
   const token = await getToken(
     authority,
