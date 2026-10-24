@@ -34,7 +34,7 @@ html(lang="hr")
       .delete { background: #c62828; color: white; border: none; }
       .cancel { background: #efefef; border: 1px solid #ccc; }
       .back { display: inline-block; margin-bottom: 15px; }
-      a { text-decoration: none; color: white }
+      a { text-decoration: none; color: black }
   body
     a.back(href="/") Povratak na početnu
     h1 Sve propusnice
@@ -65,9 +65,9 @@ html(lang="hr")
                 a(href=`/info/${pass.id}`) Javne informacije
                 br
                 if pass.status === 'ACTIVE'
-                  form(method="PATCH" action=`/passes/${pass.id}/cancel`)
+                  form(method="POST" action=`/passes/${pass.id}/cancel`)
                     button.cancel(type="submit") Poništi
-                form(method="DELETE" action=`/passes/${pass.id}/delete` onsubmit="return confirm('Želite li zaista obrisati ovu propusnicu?')")
+                form(method="POST" action=`/passes/${pass.id}/delete` onsubmit="return confirm('Želite li zaista obrisati ovu propusnicu?')")
                   button.delete(type="submit") Obriši
     else
       p Trenutačno nema propusnica.

@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/passes/:id", requiredScopes("read:passes"), getPass);
 router.post("/passes", requiredScopes("create:passes"), createPass);
-router.patch('/passes/:id/cancel', requiresAuth(), cancelPass);
-router.delete('/passes/:id/delete', requiresAuth(), deletePass);
+router.post('/passes/:id/cancel', requiresAuth(), cancelPass);
+router.post('/passes/:id/delete', requiresAuth(), deletePass);
 
 export default router;
