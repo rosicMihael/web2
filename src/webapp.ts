@@ -34,7 +34,7 @@ const config = {
 };
 
 const jwtConfig = {
-  audience: "web2-passes-api",
+  audience: process.env.AUDIENCE,
   issuerBaseURL: process.env.ISSUER_BASE_URL,
 };
 
