@@ -1,6 +1,7 @@
 import express from 'express';
 import { getHome, getPrivate,  } from '../controllers/homeController.ts';
-import { requiresAuth } from 'express-openid-connect';
+import oidc from 'express-openid-connect';
+const { requiresAuth } = oidc;
 
 const router = express.Router();
 
