@@ -67,7 +67,7 @@ export async function issuePass(
     }
 
     const image = Buffer.from(await response.arrayBuffer());
-    await writeFile(`${passId}.png`, image);
+    await writeFile(`/src/task2/${passId}.png`, image);
 
   } catch (error) {
     console.error("Error issuing pass:", error);

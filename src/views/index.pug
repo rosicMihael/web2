@@ -12,6 +12,8 @@ html
                     input(type="submit", value="Logout " + username)
             else
                 li: a(href='/sign-up', title='Sign up') Sign up 
+            if username
+                li: a(href="/passes", title="Passes") View passes
             if totalPasses !== undefined && activePasses !== undefined
                 li: div Passes (Total: #{totalPasses}, Active: #{activePasses})
         

@@ -19,7 +19,7 @@ async function main() {
     scope,
   );
 
-  await issuePass(apiUrl, token, "Ivan Horvat", "123456789");
+  await issuePass(apiUrl, token, "marko", "dokument");
 
   console.log("Propusnica je uspješno izdana.");
 }

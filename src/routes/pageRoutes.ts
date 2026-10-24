@@ -3,6 +3,7 @@ import {
   getAllPassesPage,
   getHome,
   getPrivate,
+  getPassInfoPage,
   logout,
   signUp,
 } from "../controllers/homeController.ts";
@@ -14,6 +15,7 @@ const router = express.Router();
 router.get("/", getHome);
 router.get("/private", requiresAuth(), getPrivate);
 router.get("/passes", requiresAuth(), getAllPassesPage);
+router.get("/info/:id", getPassInfoPage);
 router.post("/logout", requiresAuth(), logout);
 router.get("/sign-up", signUp);
 

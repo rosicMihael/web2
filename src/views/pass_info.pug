@@ -1,0 +1,155 @@
+html(lang="hr")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Detalji propusnice
+
+    style.
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background: #f3f4f6;
+        color: #1f2937;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 24px;
+      }
+
+      .pass-card {
+        width: 100%;
+        max-width: 560px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+
+      .card-header {
+        padding: 28px 32px;
+        background: #1d3c98;
+        color: white;
+      }
+
+      .card-header h1 {
+        margin: 0 0 8px;
+        font-size: 26px;
+      }
+
+      .card-header p {
+        margin: 0;
+        opacity: 0.85;
+      }
+
+      .card-body {
+        padding: 28px 32px;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+        margin-bottom: 24px;
+      }
+
+      .status-active {
+        background: #dcfce7;
+        color: #166534;
+      }
+
+      .status-cancelled {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      .field {
+        padding: 16px 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .field:last-child {
+        border-bottom: none;
+      }
+
+      .field dt {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 7px;
+      }
+
+      .field dd {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+      }
+
+      .pass-id {
+        font-size: 13px;
+        color: #6b7280;
+        margin-top: 24px;
+      }
+
+      .footer {
+        padding: 20px 32px;
+        background: #f9fafb;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .footer a {
+        color: #1d3c98;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 480px) {
+        .card-header,
+        .card-body,
+        .footer {
+          padding: 22px;
+        }
+      }
+
+  body
+    main.pass-card
+      header.card-header
+        h1 Detalji propusnice
+        p Informacije o izdanoj propusnici
+
+      section.card-body
+        if pass.status === 'ACTIVE'
+          span.status.status-active AKTIVNA
+        else
+          span.status.status-cancelled OTKAZANA
+
+        dl
+          .field
+            dt Ime i prezime
+            dd= pass.name
+
+          .field
+            dt Dokument
+            dd= pass.document
+
+          .field
+            dt Datum i vrijeme izdavanja
+            - const issuedAt = pass.issuedAt || pass.issued_at
+            dd= issuedAt ? new Date(issuedAt).toLocaleString('hr-HR') : 'Nije dostupno'
+
+        p.pass-id
+          | Broj propusnice:
+          = ' #' + pass.id
+
+      footer.footer
+        a(href="/") Povratak na početnu stranicu
