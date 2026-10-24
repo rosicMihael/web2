@@ -1,6 +1,7 @@
 import express from 'express';
 import { logout, signUp } from '../controllers/apiController.ts';
-import { requiresAuth } from 'express-openid-connect';
+import oidc from 'express-openid-connect';
+const { requiresAuth } = oidc;
 
 const router = express.Router();
 
