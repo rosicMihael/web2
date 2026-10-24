@@ -36,7 +36,6 @@ const config = {
 const jwtConfig = {
   audience: process.env.AUDIENCE,
   issuerBaseURL: process.env.ISSUER_BASE_URL,
-  tokenSigningAlg: "RS256" as const
 };
 
 app.use(auth(config));
