@@ -10,6 +10,9 @@ dotenv.config();
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.set("views", path.join(import.meta.dirname, "views"));
 app.set("view engine", "pug");
 
