@@ -40,29 +40,25 @@ export async function createPass(req: Request, res: Response) {
 
 export async function deletePass(req: Request, res: Response) {
   const passId = parseInt(String(req.params.id), 10);
-    if (isNaN(passId)) {
+  if (isNaN(passId)) {
     return res.status(400).send("Invalid pass id");
   }
-    const deleted = await deletePassService(passId);
-    if (!deleted) {
-    return res
-      .status(404)
-      .send("Pass with this id does not exist");
+  const deleted = await deletePassService(passId);
+  if (!deleted) {
+    return res.status(404).send("Pass with this id does not exist");
   }
 
   res.redirect("/passes");
 }
 
 export async function cancelPass(req: Request, res: Response) {
-    const passId = parseInt(String(req.params.id), 10);
-    if (isNaN(passId)) {
-    return res.status(400).send("Invalid pass id" );
+  const passId = parseInt(String(req.params.id), 10);
+  if (isNaN(passId)) {
+    return res.status(400).send("Invalid pass id");
   }
-    const cancelled = await cancelPassService(passId);
-    if (!cancelled) {
-    return res
-      .status(404)
-      .send("Pass with this id does not exist");
+  const cancelled = await cancelPassService(passId);
+  if (!cancelled) {
+    return res.status(404).send("Pass with this id does not exist");
   }
 
   res.redirect("/passes");
