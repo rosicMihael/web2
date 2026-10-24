@@ -50,7 +50,8 @@ export async function issuePass(
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to issue pass: ${response.status} ${response.statusText}`);
+        const errorBody = await response.text();
+      throw new Error(`Failed to issue pass: ${response.status} ${response.statusText} - ${errorBody}`);
     }
 
     const location = response.headers.get("location");
