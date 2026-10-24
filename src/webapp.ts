@@ -1,11 +1,14 @@
 import express from 'express';
 import path from 'path'
 import oidc from 'express-openid-connect';
-const { auth, requiresAuth } = oidc;
+import pageRouter from './routes/pageRoutes.ts';
+import apiRouter from './routes/apiRoutes.ts';
+const { auth } = oidc;
 import dotenv from 'dotenv'
 dotenv.config()
 
 const app = express();
+
 app.set("views", path.join(import.meta.dirname, "views"));
 app.set('view engine', 'pug');
 
@@ -31,32 +34,11 @@ const config = {
 // auth router attaches /login and /callback routes to the baseURL (/logout is disabled in routes)
 app.use(auth(config));
 
+app.use('/', pageRouter);
+app.use('/api', apiRouter);
+
 // logout changes state (removes session), so POST is used instead of GET
 // (otherwise any page could log the user out with a link or redirect - logout CSRF)
-app.post('/logout', (req, res) => res.oidc.logout());
-
-app.get('/',  function (req, res) {
-  let username : string | undefined;
-  if (req.oidc.isAuthenticated()) {
-    username = req.oidc.user?.name ?? req.oidc.user?.sub;
-  }
-  res.render('index', {username});
-});
-
-app.get('/private', requiresAuth(), function (req, res) {       
-    const user = JSON.stringify(req.oidc.user);      
-    res.render('private', {user}); 
-});
-
-app.get("/sign-up", (req, res) => {
-  res.oidc.login({
-    returnTo: '/',
-    authorizationParams: {      
-      screen_hint: "signup",
-    },
-  });
-});
-
 
 app.listen(port, hostname, () => {    
   console.log(`Server running at http://${hostname}:${port}/`);
