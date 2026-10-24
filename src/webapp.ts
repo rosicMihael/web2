@@ -1,45 +1,49 @@
-import express from 'express';
-import path from 'path'
-import oidc from 'express-openid-connect';
-import pageRouter from './routes/pageRoutes.ts';
-import apiRouter from './routes/apiRoutes.ts';
+import express from "express";
+import path from "path";
+import oidc from "express-openid-connect";
+import { auth as jwtAuth } from "express-oauth2-jwt-bearer";
+import pageRouter from "./routes/pageRoutes.ts";
+import apiRouter from "./routes/apiRoutes.ts";
 const { auth } = oidc;
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 
 app.set("views", path.join(import.meta.dirname, "views"));
-app.set('view engine', 'pug');
+app.set("view engine", "pug");
 
-const port = parseInt(process.env.PORT ?? '4080', 10);
-const hostname = process.env.HOSTNAME || 'localhost'; // must match the callback URL registered in Auth0
+const port = parseInt(process.env.PORT ?? "4080", 10);
+const hostname = process.env.HOSTNAME || "localhost";
 
-const config = { 
-  authRequired : false,
-  idpLogout : true, //logout not only from the app, but also from identity provider
+const config = {
+  authRequired: false,
+  idpLogout: true,
   secret: process.env.SECRET,
   baseURL: process.env.BASE_URL,
   clientID: process.env.CLIENT_ID,
   issuerBaseURL: process.env.ISSUER_BASE_URL,
   clientSecret: process.env.CLIENT_SECRET,
   routes: {
-    logout: false as const // library registers GET /logout only; POST is used instead (see below)
+    logout: false as const,
   },
   authorizationParams: {
-    response_type: 'code' ,
-    //scope: "openid profile email"   
-   },
+    response_type: "code",
+    //scope: "openid profile email"
+  },
 };
-// auth router attaches /login and /callback routes to the baseURL (/logout is disabled in routes)
+
+const jwtConfig = {
+  audience: process.env.AUDIENCE,
+  issuerBaseURL: process.env.ISSUER_BASE_URL,
+  tokenSigningAlg: process.env.TOKEN_SIGNING_ALG,
+};
+
 app.use(auth(config));
 
-app.use('/', pageRouter);
-app.use('/api', apiRouter);
+app.use("/", pageRouter);
+app.use("/api", jwtAuth(jwtConfig), apiRouter);
 
-// logout changes state (removes session), so POST is used instead of GET
-// (otherwise any page could log the user out with a link or redirect - logout CSRF)
-
-app.listen(port, hostname, () => {    
+app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
