@@ -19,9 +19,9 @@ const hostname = process.env.HOSTNAME || "localhost";
 const config = {
   authRequired: false,
   idpLogout: true,
-  secret: process.env.SECRET,
+  secret: process.env.OIDC_SECRET,
   baseURL: process.env.BASE_URL,
-  clientID: process.env.CLIENT_ID,
+  clientID: process.env.OIDC_CLIENT_ID,
   issuerBaseURL: process.env.ISSUER_BASE_URL,
   clientSecret: process.env.CLIENT_SECRET,
   routes: {
@@ -34,7 +34,7 @@ const config = {
 };
 
 const jwtConfig = {
-  audience: process.env.AUDIENCE,
+  audience: "web2-passes-api",
   issuerBaseURL: process.env.ISSUER_BASE_URL,
 };
 
