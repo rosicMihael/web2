@@ -1,0 +1,30 @@
+import { getToken, issuePass } from "./automat.js";
+import dotenv from "dotenv";
+dotenv.config();
+
+async function main() {
+  const authority = process.env.ISSUER_BASE_URL!;
+  const audience = process.env.AUDIENCE!;
+  const clientId = process.env.M2M_CLIENT_ID!;
+  const clientSecret = process.env.M2M_CLIENT_SECRET!;
+  const scope = "create:passes";
+
+  const apiUrl = `${process.env.ISSUER_BASE_URL}/api/passes`;
+
+  const token = await getToken(
+    authority,
+    audience,
+    clientId,
+    clientSecret,
+    scope,
+  );
+
+  await issuePass(apiUrl, token, "Ivan Horvat", "123456789");
+
+  console.log("Propusnica je uspješno izdana.");
+}
+
+main().catch((error) => {
+  console.error("Automat nije uspio:", error);
+  process.exitCode = 1;
+});

@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
-import { getPassCountsService } from "../services/passService.js";
+import {
+  getAllPassesService,
+  getPassCountsService,
+} from "../services/passService.js";
 
 export async function getHome(req: Request, res: Response) {
   try {
@@ -18,6 +21,11 @@ export async function getHome(req: Request, res: Response) {
 export function getPrivate(req: Request, res: Response) {
   const user = JSON.stringify(req.oidc.user);
   res.render("private", { user });
+}
+
+export async function getAllPassesPage(req: Request, res: Response) {
+  const passes = await getAllPassesService();
+  res.render("passes", { passes });
 }
 
 export function logout(req: Request, res: Response) {

@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import {
   getPassByIdService,
   createPassService,
+  deletePassService,
+  cancelPassService,
 } from "../services/passService.js";
 import QRCode from "qrcode";
 
@@ -34,4 +36,34 @@ export async function createPass(req: Request, res: Response) {
   });
 
   res.status(201).location(apiURL).type("png").send(qrImage);
+}
+
+export async function deletePass(req: Request, res: Response) {
+  const passId = parseInt(String(req.params.id), 10);
+    if (isNaN(passId)) {
+    return res.status(400).send("Invalid pass id");
+  }
+    const deleted = await deletePassService(passId);
+    if (!deleted) {
+    return res
+      .status(404)
+      .send("Pass with this id does not exist");
+  }
+
+  res.redirect("/passes");
+}
+
+export async function cancelPass(req: Request, res: Response) {
+    const passId = parseInt(String(req.params.id), 10);
+    if (isNaN(passId)) {
+    return res.status(400).send("Invalid pass id" );
+  }
+    const cancelled = await cancelPassService(passId);
+    if (!cancelled) {
+    return res
+      .status(404)
+      .send("Pass with this id does not exist");
+  }
+
+  res.redirect("/passes");
 }

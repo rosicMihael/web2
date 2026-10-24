@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getAllPassesPage,
   getHome,
   getPrivate,
   logout,
@@ -12,6 +13,7 @@ const router = express.Router();
 
 router.get("/", getHome);
 router.get("/private", requiresAuth(), getPrivate);
+router.get("/passes", requiresAuth(), getAllPassesPage);
 router.post("/logout", requiresAuth(), logout);
 router.get("/sign-up", signUp);
 
