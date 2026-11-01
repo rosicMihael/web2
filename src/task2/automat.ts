@@ -21,7 +21,9 @@ export async function getToken(
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to get token: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `Failed to get token: ${response.status} ${response.statusText}`,
+      );
     }
 
     const data = await response.json();
@@ -39,7 +41,7 @@ export async function issuePass(
   name: string,
   document: string,
 ): Promise<void> {
-    try {
+  try {
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -50,8 +52,9 @@ export async function issuePass(
     });
 
     if (!response.ok) {
-        const errorBody = await response.text();
-      throw new Error(`Failed to issue pass: ${response.status} ${response.statusText} - ${errorBody}`);
+      throw new Error(
+        `Failed to issue pass: ${response.status} ${response.statusText}`,
+      );
     }
 
     const location = response.headers.get("location");
@@ -60,15 +63,14 @@ export async function issuePass(
       throw new Error("No location header in response");
     }
 
-    const passId = new URL(location).pathname.split('/').filter(Boolean).pop();
+    const passId = new URL(location).pathname.split("/").filter(Boolean).pop();
 
     if (!passId) {
-        throw new Error('Could not extract pass ID from Location');
+      throw new Error("Could not extract pass ID from Location");
     }
 
     const image = Buffer.from(await response.arrayBuffer());
     await writeFile(`src/task2/${passId}.png`, image);
-
   } catch (error) {
     console.error("Error issuing pass:", error);
     throw error;
