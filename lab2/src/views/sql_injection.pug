@@ -1,0 +1,23 @@
+html     
+    head 
+        link(rel="stylesheet", href="/css/login.css")
+        title #{title}
+    body 
+         div(class="page_header")
+            h1 SQL Injection
+            p Ova stranica je ranjiva na napad SQL Injection.
+         div(class="login-form", style="display: block")
+            h1 Login
+            form(action="", method="post")
+                label(for="username") Username:
+                input(type="text", id="username", name="username", required) 
+                label(for="password") Password:
+                input(type="password", id="password", name="password", required)                 
+                input(type="button", id="btnLogin", value="Login")
+         div(id="content")
+         div(class="check_vulnerable")
+             input(type="checkbox", id="btnCheckVulnerability", name="is_vulnerable")
+             label(for="btnCheckVulnerability") Ranjivost uključena
+         p(class="back_to_home")
+          a(href="/") Povratak na početnu stranicu &rarr;
+         script(src="/js/site.js")

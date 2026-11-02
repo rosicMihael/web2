@@ -11,9 +11,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set("views", path.join(import.meta.dirname, "views"));
 app.set("view engine", "pug");
+app.use(express.static(path.join(import.meta.dirname, "public")));
 
 const port = parseInt(process.env.PORT ?? "4080", 10);
-const hostname = process.env.HOSTNAME || "0.0.0.0";
+const hostname = process.env.HOSTNAME || "localhost";
 
 app.use("/", pageRouter);
 

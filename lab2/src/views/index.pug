@@ -3,5 +3,11 @@ html
         link(rel="stylesheet", href="/css/login.css")
         title #{title}
     body 
-        p Hello World!      
+        p Available voulnerabilities:
+        ul
+            li
+                a(href="/sql_injection") SQL Injection
+            li
+                a(href="/broken_auth") Broken Authentication
+
         script(src="/js/site.js")

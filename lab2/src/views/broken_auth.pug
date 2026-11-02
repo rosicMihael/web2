@@ -1,0 +1,15 @@
+html     
+    head 
+        link(rel="stylesheet", href="/css/login.css")
+        title #{title}
+    body 
+         div(class="login-form", style="display: block")
+            h1 Login or Register
+            form(action="", method="post")
+                label(for="username") Username:
+                input(type="text", id="username", name="username", required) 
+                label(for="password") Password:
+                input(type="password", id="password", name="password", required)                 
+                input(type="button", id="btnLogin", value="Login")
+         div(id="content")       
+         script(src="/js/site.js")
