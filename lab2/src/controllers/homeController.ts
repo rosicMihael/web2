@@ -1,5 +1,5 @@
 export function getHome(req: any, res: any) {
-  res.render("pages/home", {
+  res.render("index", {
     title: "Home",
   });
 }
