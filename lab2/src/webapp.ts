@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import pageRouter from "./routes/pageRoutes.ts";
+import apiRouter from "./routes/apiRouter.ts";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -17,6 +18,7 @@ const port = parseInt(process.env.PORT ?? "4080", 10);
 const hostname = process.env.HOSTNAME || "localhost";
 
 app.use("/", pageRouter);
+app.use("/api", apiRouter);
 
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
