@@ -3,13 +3,23 @@ html
         link(rel="stylesheet", href="/css/login.css")
         title #{title}
     body 
+         div(class="page_header")
+            h1 Broken Authentication
+            p Ova stranica implementira ranjivost Broken Authentification.
          div(class="login-form", style="display: block")
-            h1 Login or Register
+            h1 Login
             form(action="", method="post")
                 label(for="username") Username:
                 input(type="text", id="username", name="username", required) 
                 label(for="password") Password:
                 input(type="password", id="password", name="password", required)                 
                 input(type="button", id="btnLogin", value="Login")
-         div(id="content")       
+         div(id="content")
+         div(class="check_vulnerable")
+             input(type="checkbox", id="btnCheckVulnerabilityBrokenAuth", name="is_vulnerable")
+             label(for="btnCheckVulnerabilityBrokenAuth") Ranjivost uključena
+         div(id="query", class="query")
+         div(id="result", class="result")
+         p(class="back_to_home")
+          a(href="/") Povratak na početnu stranicu &rarr;
          script(src="/js/site.js")

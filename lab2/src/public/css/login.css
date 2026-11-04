@@ -88,3 +88,11 @@
   text-decoration: none;
   color: #535b63;
 }
+
+.query,
+.result {
+  width: 300px;
+  margin: 0 auto;
+  font-family: Tahoma, Geneva, sans-serif;
+  padding: 10px;
+}

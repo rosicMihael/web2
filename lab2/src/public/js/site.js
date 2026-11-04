@@ -36,6 +36,17 @@ async function login() {
         2,
       );
     }
+    if (data.db_username && data.db_password) {
+      document.getElementById("result").textContent = {
+        db_username: data.db_username,
+        db_password: data.db_password,
+      };
+    }
+    if (data.password_hash) {
+      document.getElementById("result").textContent = {
+        password_hash: data.password_hash,
+      };
+    }
     document.getElementById("content").innerHTML =
       `${response.status} : ${data.message}`;
   } catch (error) {
