@@ -37,6 +37,9 @@ export async function getPassInfoPage(req: Request, res: Response) {
     return res.status(400).send("Invalid pass id");
   }
   const pass = await getPassByIdService(passId);
+  if (!pass) {
+    return res.status(404).send("Pass with this id does not exist");
+  }
 
   res.render("pass_info", { pass });
 }
