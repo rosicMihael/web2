@@ -51,7 +51,7 @@ async function login() {
       2,
     );
   }
-  if (data.password_hash) {
+  if (data.password_hash && window.location.href.includes("broken_auth")) {
     document.getElementById("result").textContent = data.password_hash;
   }
   document.getElementById("content").innerHTML =
