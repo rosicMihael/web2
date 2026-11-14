@@ -2,6 +2,8 @@ document.getElementById("btnLogin").addEventListener("click", login);
 
 async function login() {
   document.getElementById("content").innerHTML = "";
+  document.getElementById("query").textContent = "";
+  document.getElementById("result").textContent = "";
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   const sql_vulnerable = document.getElementById(
@@ -10,46 +12,48 @@ async function login() {
   const broken_auth_vulnerable = document.getElementById(
     "btnCheckVulnerabilityBrokenAuth",
   )?.checked;
-  try {
-    const response = await fetch("api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username,
-        password,
-        sql_vulnerable,
-        broken_auth_vulnerable,
-      }),
-    });
-    if (!response.ok) {
-      document.getElementById("content").innerHTML =
-        `${response.status} : ${await response.text()}`;
-      return;
-    }
+  const response = await fetch("api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username,
+      password,
+      sql_vulnerable,
+      broken_auth_vulnerable,
+    }),
+  });
+  if (!response.ok) {
     const data = await response.json();
-    if (data.query && data.result) {
-      document.getElementById("query").textContent = data.query;
-
-      document.getElementById("result").textContent = JSON.stringify(
-        data.result,
-        null,
-        2,
-      );
-    }
-    if (data.db_username && data.db_password) {
-      document.getElementById("result").textContent = {
-        db_username: data.db_username,
-        db_password: data.db_password,
-      };
-    }
-    if (data.password_hash) {
-      document.getElementById("result").textContent = {
-        password_hash: data.password_hash,
-      };
-    }
     document.getElementById("content").innerHTML =
       `${response.status} : ${data.message}`;
-  } catch (error) {
-    document.getElementById("content").innerHTML = error;
+    return;
   }
+  const data = await response.json();
+  if (data.query && data.result) {
+    document.getElementById("query").textContent = data.query;
+    const resultElement = document.getElementById("result");
+    resultElement.innerHTML = "";
+    const ul = document.createElement("ul");
+    data.result.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = JSON.stringify(item);
+      ul.appendChild(li);
+    });
+    resultElement.appendChild(ul);
+  }
+  if (data.db_username && data.db_password) {
+    document.getElementById("result").textContent = JSON.stringify(
+      {
+        db_username: data.db_username,
+        db_password: data.db_password,
+      },
+      null,
+      2,
+    );
+  }
+  if (data.password_hash) {
+    document.getElementById("result").textContent = data.password_hash;
+  }
+  document.getElementById("content").innerHTML =
+    `${response.status} : ${data.message}`;
 }

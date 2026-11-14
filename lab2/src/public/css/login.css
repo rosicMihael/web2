@@ -76,7 +76,6 @@
 }
 
 .back_to_home {
-  margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   width: 300px;
@@ -91,8 +90,24 @@
 
 .query,
 .result {
+  width: 80vw;
+  margin: 0 auto;
+  font-family: Tahoma, Geneva, sans-serif;
+  padding: 10px;
+  text-align: center;
+  overflow-wrap: anywhere;
+  box-sizing: border-box;
+}
+
+.result ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.content {
   width: 300px;
   margin: 0 auto;
   font-family: Tahoma, Geneva, sans-serif;
   padding: 10px;
+  text-align: center;
 }

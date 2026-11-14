@@ -8,4 +8,12 @@ const pool = new Pool({
   port: parseInt(process.env.DB_PORT ?? "5432", 10),
 });
 
+/* Za lokalno testiranje s render bazom
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});*/
+
 export default pool;

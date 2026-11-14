@@ -14,12 +14,12 @@ html
                 label(for="password") Password:
                 input(type="password", id="password", name="password", required)                 
                 input(type="button", id="btnLogin", value="Login")
-         div(id="content")
+         div(id="content" class="content")
          div(class="check_vulnerable")
              input(type="checkbox", id="btnCheckVulnerabilityBrokenAuth", name="is_vulnerable")
              label(for="btnCheckVulnerabilityBrokenAuth") Ranjivost uključena
-         div(id="query", class="query")
-         div(id="result", class="result")
+         div(id="query" class="query")
+         div(id="result" class="result")
          p(class="back_to_home")
           a(href="/") Povratak na početnu stranicu &rarr;
          script(src="/js/site.js")
